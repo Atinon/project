@@ -77,6 +77,9 @@ class UserProfile(models.Model):
     picture = models.ImageField(
         null=True,
         blank=True,
+        validators=(
+            custom_validators.MaxFileSizeInMbValidator,
+        )
     )
 
     date_of_birth = models.DateField(
