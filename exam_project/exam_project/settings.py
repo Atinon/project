@@ -23,6 +23,7 @@ THIRD_PARTY_APPS = ()
 
 PROJECT_APPS = (
     'exam_project.accounts',
+    'exam_project.main',
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
@@ -101,7 +102,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-# STATIC_ROOT = BASE_DIR / 'staticfiles/'
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = (
     BASE_DIR / 'staticfiles',
 )
