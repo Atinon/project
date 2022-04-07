@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from exam_project.accounts.models import UserProfile
+
+
+@admin.register(UserProfile)
+class UserAdmin(admin.ModelAdmin):
+    pass

@@ -41,11 +41,11 @@ class UserProfile(models.Model):
     LAST_NAME_MAX_LEN = 25
     LAST_NAME_MIN_LEN = 2
 
-    MALE = 'Male',
-    FEMALE = 'Female',
-    OTHER = 'Other',
-    DO_NOT_SHOW = 'Do not show',
-    GENDERS = ((x, x) for x in (MALE, FEMALE, OTHER, DO_NOT_SHOW))
+    MALE = 'Male'
+    FEMALE = 'Female'
+    OTHER = 'Other'
+    DO_NOT_SHOW = 'Do not show'
+    GENDERS = [(x, x) for x in (MALE, FEMALE, OTHER, DO_NOT_SHOW)]
 
     alias = models.CharField(
         null=True,
@@ -79,7 +79,7 @@ class UserProfile(models.Model):
         blank=True,
     )
 
-    date_of_birth = models.DateTimeField(
+    date_of_birth = models.DateField(
         null=True,
         blank=True,
     )
@@ -90,8 +90,8 @@ class UserProfile(models.Model):
     )
 
     gender = models.CharField(
-        choices=GENDERS,
         max_length=max(len(x) for x, _ in GENDERS),
+        choices=GENDERS,
         default=DO_NOT_SHOW,
     )
 
