@@ -8,9 +8,14 @@
             <form method="POST" action="{% url 'register page' %}" enctype="multipart/form-data"> {# enctype #}
                 {% csrf_token %}
                 <ul class="list-group">
-                {{ form.as_table }}
+                    {{ form.as_table }}
                 </ul>
-                <button class="btn btn-light" type="submit">Create</button>
+{#                <br>#}
+                <div style="text-align: center">
+                    <button class="btn btn-outline-dark"
+                            type="submit"
+                            style="width: 35%;margin-top: 7px;margin-bottom: 7px;">Create</button>
+                </div>
             </form>
         </div>
         <div class="col-lg-3"></div>

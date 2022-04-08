@@ -7,6 +7,7 @@ USER = ProjectUser
 PROFILE = UserProfile
 
 ALIAS_VALIDATOR_ERROR_MSG = 'Such alias already exists.'
+DESCRIPTION_TEXT_FIELD_ROW_NUMBER = 5
 
 
 class CreateProfileForm(auth_forms.UserCreationForm):
@@ -31,7 +32,7 @@ class CreateProfileForm(auth_forms.UserCreationForm):
     )
 
     description = forms.CharField(
-        widget=forms.Textarea,
+        widget=forms.Textarea(attrs={'rows': DESCRIPTION_TEXT_FIELD_ROW_NUMBER}),
         required=False,
     )
 
