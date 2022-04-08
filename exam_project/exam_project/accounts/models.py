@@ -50,7 +50,7 @@ class UserProfile(models.Model):
     alias = models.CharField(
         null=True,
         blank=True,
-        unique=True,  # probably wont work
+        # unique=True,  # probably wont work
         max_length=ALIAS_MAX_LEN,
         validators=(
             django_validators.MinLengthValidator(ALIAS_MIN_LEN),
