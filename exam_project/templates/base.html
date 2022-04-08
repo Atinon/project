@@ -4,6 +4,8 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'custom_classes.css' %}"/>
+
     <meta charset="UTF-8">
     <title>Wonder-Project</title>
     <style>
@@ -71,9 +73,9 @@
                 </ul>
 
 
-                    <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                        <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-                    </form>
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                    <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+                </form>
 
 
                 {% if not request.user.is_authenticated %}
@@ -103,7 +105,8 @@
                         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
                             <li><a class="dropdown-item" href="#">New project...</a></li>
                             <li><a class="dropdown-item" href="#">Settings</a></li>
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'profile details' request.user.pk %}">Profile</a>
+                            </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

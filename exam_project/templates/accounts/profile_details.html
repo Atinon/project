@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+
+    <div style="display: flex; justify-content: center; flex-direction: row; text-align: center">
+        <div class="card" style="width: 50rem;">
+            <img style="height: 31rem; width: 49.95rem;"
+                 src="{{ get_media_prefix }}{{ object.picture.url }}"
+                 class="card-img-top"
+                 alt="Photo Unavailable">
+            <div class="card-body">
+                <h5 class="card-title">
+                    {% if object.alias %}
+                        <div style="font-size:x-large">{{ object.alias }}</div>
+                        <div style="font-size:small">{{ object.user.email }}</div>
+                    {% else %}
+                        <div style="font-size:x-large">{{ object.user.email }}</div>
+                    {% endif %}
+                    <hr class="post-title-line">
+                </h5>
+                <p class="card-text">
+                <p>First name: {{ object.first_name }}</p>
+                <p>Last name: {{ object.last_name }}</p>
+                <p>Gender: {{ object.gender }}</p>
+                {% if object.description %}
+                    <p>About me: {{ object.description }}</p>
+                {% endif %}
+
+
+                <div>
+                    <span style="font-size: x-small; text-align: left">
+                        Date of birth: {{ object.date_of_birth | date }}
+                    </span>
+                    |
+                    <span style="font-size: x-small; text-align: right">
+                        Date joined: {{ object.user.date_joined | date }}
+                    </span>
+                </div>
+                {##}
+                {#                <p class="text-lg-start" style="font-size: x-small">#}
+                {#                    Date joined: {{ object.user.date_joined | date }}#}
+                {#                </p>#}
+                {#                 <p class="text-lg-end" style="font-size: x-small">#}
+                {#                    Date joined: {{ object.date_of_birth | date }}#}
+                {#                </p>#}
+
+                </p>
+                {#                <a href="#" class="btn btn-primary">Go somewhere</a>#}
+            </div>
+        </div>
+    </div>
+{% endblock %}
