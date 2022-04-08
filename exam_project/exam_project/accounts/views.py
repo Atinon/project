@@ -31,8 +31,6 @@ class ProfileDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):
     model = PROFILE
     template_name = 'accounts/profile_details.html'
 
-    # checking out url
-    def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        print(self.object.picture.url)
-        return super().get(request, *args, **kwargs)
+
+class UserLogoutView(auth_views.LogoutView):
+    next_page = 'index'

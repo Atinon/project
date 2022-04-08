@@ -4,10 +4,17 @@
 
     <div style="display: flex; justify-content: center; flex-direction: row; text-align: center">
         <div class="card" style="width: 50rem;">
-            <img style="height: 31rem; width: 49.95rem;"
-                 src="{{ get_media_prefix }}{{ object.picture.url }}"
-                 class="card-img-top"
-                 alt="Photo Unavailable">
+            {% if object.picture %}
+                <img style="height: 31rem; width: 49.95rem;"
+                     src="{{ get_media_prefix }}{{ object.picture.url }}"
+                     class="card-img-top"
+                     alt="Photo Unavailable">
+            {% else %}
+                <img style="height: 31rem; width: 49.95rem;"
+                     src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png?20170328184010"
+                     class="card-img-top"
+                     alt="Photo Unavailable">
+            {% endif %}
             <div class="card-body">
                 <h5 class="card-title">
                     {% if object.alias %}
@@ -36,15 +43,7 @@
                         Date joined: {{ object.user.date_joined | date }}
                     </span>
                 </div>
-                {##}
-                {#                <p class="text-lg-start" style="font-size: x-small">#}
-                {#                    Date joined: {{ object.user.date_joined | date }}#}
-                {#                </p>#}
-                {#                 <p class="text-lg-end" style="font-size: x-small">#}
-                {#                    Date joined: {{ object.date_of_birth | date }}#}
-                {#                </p>#}
 
-                </p>
                 {#                <a href="#" class="btn btn-primary">Go somewhere</a>#}
             </div>
         </div>
