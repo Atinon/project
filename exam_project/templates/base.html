@@ -98,9 +98,10 @@
         </div>
     </header>
 
-    {% block page_content %}
-    {% endblock %}
-
+    <div class="container">
+        {% block page_content %}
+        {% endblock %}
+    </div>
 </main>
 
 <script src="{% static 'bootstrap/js/bootstrap.bundle.js' %}"></script>
