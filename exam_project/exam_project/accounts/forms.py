@@ -1,6 +1,5 @@
 from django import forms
 from django.contrib.auth import forms as auth_forms
-from django.core.exceptions import ValidationError
 
 from exam_project.accounts.models import UserProfile, ProjectUser
 
@@ -10,17 +9,9 @@ PROFILE = UserProfile
 ALIAS_VALIDATOR_ERROR_MSG = 'Such alias already exists.'
 
 
-def unique_alias_validator(value):
-    aliases = [x.alias for x in PROFILE.objects.all()]
-    for al in aliases:
-        if al == value:
-            raise ValidationError(ALIAS_VALIDATOR_ERROR_MSG)
-
-
 class CreateProfileForm(auth_forms.UserCreationForm):
     alias = forms.CharField(
         max_length=PROFILE.ALIAS_MAX_LEN,
-        # validators=unique_alias_validator, # TODO: Check unique in form before submitting so no exception
     )
 
     first_name = forms.CharField(
