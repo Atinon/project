@@ -5,9 +5,10 @@ from django.urls import reverse_lazy
 from django.views import generic as views
 
 from exam_project.accounts.forms import CreateProfileForm, ProfileEditForm
-from exam_project.accounts.models import UserProfile
+from exam_project.accounts.models import UserProfile, ProjectUser
 from exam_project.utils.view_mixins import RedirectIfAuthenticatedMixin
 
+USER = ProjectUser
 PROFILE = UserProfile
 
 
@@ -39,6 +40,12 @@ class ProfileEditView(auth_mixins.LoginRequiredMixin, views.UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('profile details', kwargs={'pk': self.object.pk})
+
+
+class UserChangePasswordView(auth_views.PasswordChangeView):
+    # model = USER
+    template_name = 'accounts/user_change_password.html'
+    # success_url = reverse_lazy('index')
 
 
 class UserLogoutView(auth_views.LogoutView):
