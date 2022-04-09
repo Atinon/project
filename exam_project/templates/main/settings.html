@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+    <div style="padding-block: 10px">
+        <div class="text-center" style="padding-block: 10px">
+            <input
+                    type="button"
+                    class="btn btn-dark"
+                    value="Edit Profile">
+            {#                onclick="location.href{% url '#' %}">#}
+        </div>
+        <div class="text-center" style="padding-block: 10px">
+            <input
+                    type="button"
+                    class="btn btn-dark"
+                    value="Friends settings">
+            {#                onclick="location.href{% url '#' %}">#}
+        </div>
+        <div class="text-center" style="padding-block: 10px">
+            <input
+                    type="button"
+                    class="btn btn-dark"
+                    value="Comments Settings">
+            {#                onclick="location.href{% url '#' %}">#}
+        </div>
+    </div>
+{% endblock %}
