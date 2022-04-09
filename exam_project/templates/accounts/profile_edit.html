@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+    <h1 class="text-center">Edit Your Profile</h1>
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+            <form method="POST" action="{% url 'profile edit' pk=request.user.pk %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <ul class="list-group">
+                    {% for field in form %}
+                        <table>
+                            {{ field.errors }}
+                            {{ field.label_tag }}
+                            {% if field == form.picture and object.picture.url %}
+                                <img src="{{ get_media_prefix }}{{ object.picture.url }}" alt="error">
+                                {{ form.picture.field.widget.name }}
+                            {% endif %}
+                            {{ field }}
+                        </table>
+                    {% endfor %}
+                </ul>
+                {#                <br>#}
+                <div style="text-align: center">
+                    <button class="btn btn-outline-dark"
+                            type="submit"
+                            style="width: 35%;margin-top: 7px;margin-bottom: 7px;">Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
+{% endblock %}

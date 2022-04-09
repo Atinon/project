@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic as views
 
-from exam_project.accounts.forms import CreateProfileForm
+from exam_project.accounts.forms import CreateProfileForm, ProfileEditForm
 from exam_project.accounts.models import UserProfile
 from exam_project.utils.view_mixins import RedirectIfAuthenticatedMixin
 
@@ -30,6 +30,15 @@ class UserLoginView(RedirectIfAuthenticatedMixin, auth_views.LoginView):
 class ProfileDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):
     model = PROFILE
     template_name = 'accounts/profile_details.html'
+
+
+class ProfileEditView(auth_mixins.LoginRequiredMixin, views.UpdateView):
+    form_class = ProfileEditForm
+    model = PROFILE
+    template_name = 'accounts/profile_edit.html'
+
+    def get_success_url(self):
+        return reverse_lazy('profile details', kwargs={'pk': self.object.pk})
 
 
 class UserLogoutView(auth_views.LogoutView):

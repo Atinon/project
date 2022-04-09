@@ -61,3 +61,19 @@ class CreateProfileForm(auth_forms.UserCreationForm):
     class Meta:
         model = USER
         fields = ('email', 'password1', 'password2')
+
+
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = PROFILE
+        fields = (
+            'alias',
+            'first_name',
+            'last_name',
+            'picture',
+            'date_of_birth',
+            'description',
+            'gender',
+        )
+
+
