@@ -26,7 +26,6 @@
     {#    <link href="https://getbootstrap.com/docs/5.1/examples/headers/headers.css" rel="stylesheet">#}
 </head>
 
-
 <body>
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="bootstrap" viewBox="0 0 118 94">
@@ -72,11 +71,11 @@
                     <li><a href="#" class="nav-link px-2 link-dark">Products</a></li>
                 </ul>
 
-
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                    <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="GET" action="{% url 'search' %}">
+                    {% csrf_token %} {# is it needed here? #}
+                    <input type="search" name="search"
+                           class="form-control" placeholder="Search for people..." aria-label="Search">
                 </form>
-
 
                 {% if not request.user.is_authenticated %}
                     <div>
@@ -93,7 +92,6 @@
                                 onclick="location.href='{% url 'register page' %}'"
                         >
                     </div>
-
 
                 {% else %}
                     <div class="dropdown text-end">
