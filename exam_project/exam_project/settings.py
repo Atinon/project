@@ -12,7 +12,7 @@ DEBUG = getenv('DEBUG', 'False') == True
 if DEBUG:
     HOSTS = ['127.0.0.1']
 else:
-    HOSTS = ['https://wndr-project.herokuapp.com/']
+    HOSTS = ['wndr-project.herokuapp.com']
 
 ALLOWED_HOSTS = HOSTS
 
