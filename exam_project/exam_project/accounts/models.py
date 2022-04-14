@@ -32,6 +32,9 @@ class ProjectUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
 
     objects = ProjectUserManager()
 
+    def __str__(self):
+        return self.email
+
 
 class UserProfile(models.Model):
     ALIAS_MAX_LEN = 25

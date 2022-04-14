@@ -1,7 +1,7 @@
 from django.contrib.auth import views as auth_views
 from django.contrib.auth import mixins as auth_mixins
 from django.contrib import messages
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic as views
 
@@ -39,6 +39,18 @@ class ProfileEditView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     model = PROFILE
     template_name = 'accounts/profile_edit.html'
 
+    # def dispatch(self, request, *args, **kwargs):
+    #     if request.user.id != :
+    #         return redirect(reverse_lazy('index'))
+    #     return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'is_owner': self.object.user.id == self.request.user.id,
+        }
+        )
+
     def get_success_url(self):
         return reverse_lazy('profile details', kwargs={'pk': self.object.pk})
 
@@ -51,8 +63,6 @@ class UserChangePasswordView(auth_views.PasswordChangeView):
         form.save()
         messages.success(self.request, "Password changed successfully")
         return super().form_valid(form)
-
-
 
     # def get_success_url(self):
     #     object = self.get_object()
