@@ -9,7 +9,12 @@ SECRET_KEY = 'django-insecure-1v7j1%p8__+4(q%pxc%_l*b0(o%t#y8jxnewfz1*764_pstc!6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = getenv('DEBUG', 'False') == True
 
-ALLOWED_HOSTS = []
+if DEBUG:
+    HOSTS = ['127.0.0.1']
+else:
+    HOSTS = ['https://wndr-project.herokuapp.com/']
+
+ALLOWED_HOSTS = HOSTS
 
 DJANGO_APPS = (
     'django.contrib.admin',
