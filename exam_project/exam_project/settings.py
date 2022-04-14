@@ -12,8 +12,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'wndr-project.herokuapp.com',
-    'localhost',
-    '127.0.0.1',
+    # 'localhost',
+    # '127.0.0.1',
 ]
 
 DJANGO_APPS = (
