@@ -1,3 +1,4 @@
+from os import getenv
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -6,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-1v7j1%p8__+4(q%pxc%_l*b0(o%t#y8jxnewfz1*764_pstc!6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = getenv('DEBUG', 'False') == True
 
 ALLOWED_HOSTS = []
 
@@ -59,8 +60,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'exam_project.wsgi.application'
 
-DATABASES = {
-    'default': {
+if DEBUG:
+    default = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'exam_project_db',
         'USER': 'postgres',
@@ -68,6 +69,18 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
+else:
+    default = {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'dbldk269bj8co6',
+        'USER': 'qxlvvjezyzqcmo',
+        'PASSWORD': '393cbe6834bdcda9a023fdc58f640c0c2e8d4ed96390c2dd27e5963c2120de5f',
+        'HOST': 'ec2-63-32-248-14.eu-west-1.compute.amazonaws.com',
+        'PORT': '5432',
+    }
+
+DATABASES = {
+    'default': default,
 }
 
 # Password validation
