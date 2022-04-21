@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from exam_project.main.models import ProfileComments
+
+
+@admin.register(ProfileComments)
+class CommentsAdmin(admin.ModelAdmin):
+    pass
