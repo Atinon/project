@@ -50,6 +50,7 @@ class ProfileEditView(auth_mixins.LoginRequiredMixin, views.UpdateView):
             'is_owner': self.object.user.id == self.request.user.id,
         }
         )
+        return context
 
     def get_success_url(self):
         return reverse_lazy('profile details', kwargs={'pk': self.object.pk})
