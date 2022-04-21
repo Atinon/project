@@ -7,7 +7,7 @@ USER_MODEL = get_user_model()
 
 
 class ProfileComments(models.Model):
-    COMMENT_MAX_LENGTH = 200
+    COMMENT_MAX_LENGTH = 400
     comment_text = models.TextField(
         max_length=COMMENT_MAX_LENGTH,
     )
