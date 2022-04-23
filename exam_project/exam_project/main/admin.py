@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from exam_project.main.models import ProfileComments
+from exam_project.comments.models import ProfileComments
 
 
 @admin.register(ProfileComments)

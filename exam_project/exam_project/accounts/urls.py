@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 
 from exam_project.accounts.views import UserRegisterView, UserLoginView, ProfileDetailsView, UserLogoutView, \
     ProfileEditView, UserChangePasswordView
@@ -10,4 +10,6 @@ urlpatterns = (
     path('<int:pk>/profile_edit/', ProfileEditView.as_view(), name='profile edit'),
     path('change_password/', UserChangePasswordView.as_view(), name='change password'),
     path('logout/', UserLogoutView.as_view(), name='logout page'),
+
+    path('<int:pk>/comments/', include('exam_project.comments.urls')),  # comments APP
 )

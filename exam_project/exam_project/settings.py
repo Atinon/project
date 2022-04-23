@@ -33,6 +33,7 @@ THIRD_PARTY_APPS = ()
 PROJECT_APPS = (
     'exam_project.accounts',
     'exam_project.main',
+    'exam_project.comments',
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
