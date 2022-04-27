@@ -20,7 +20,7 @@ class ProfileComments(models.Model):
         related_name="author",
         on_delete=models.CASCADE,
     )
-    receiver = models.OneToOneField(
+    receiver = models.ForeignKey(
         USER_MODEL,
         related_name="receiver",
         on_delete=models.CASCADE,

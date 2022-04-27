@@ -1,5 +1,18 @@
 {% extends 'base.html' %}
 
 {% block page_content %}
-    this is a ListView
+    ListView
+
+    <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="GET" action="{% url 'search' %}">
+        {% csrf_token %} {# is it needed here? #}
+        <input type="text" name="text"
+               class="form-control" placeholder="Search for people..." aria-label="Search">
+    </form>
+
+
+    {% for item in object_list %}
+        <li>{{ item.comment_text }}, By: {{ item.author.name }}, To: {{ item.author.name }}</li>
+    {% empty %}
+        <H1>Nothing to show.</H1>
+    {% endfor %}
 {% endblock %}

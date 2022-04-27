@@ -49,6 +49,8 @@
         </div>
     </div>
     <div style="display: flex; justify-content: center; flex-direction: row; text-align: center">
-        <a href="{% url "comments" pk=object.pk %}" type="button" class="btn btn-secondary" >View Comments</a>
+        <a href="#" type="button" class="btn btn-secondary">Leave a comment</a>
+        <a href="{% url "comments" pk=object.pk %}" type="button" class="btn btn-secondary">View Comments</a>
+
     </div>
 {% endblock %}
