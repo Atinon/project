@@ -11,7 +11,7 @@
 
 
     {% for item in object_list %}
-        <li>{{ item.comment_text }}, By: {{ item.author.name }}, To: {{ item.author.name }}</li>
+        <li>{{ item.comment_text }}, By: <b>{{ item.author.user.email }}</b>, To: <b>{{ item.receiver.user.email }}</b></li>
     {% empty %}
         <H1>Nothing to show.</H1>
     {% endfor %}

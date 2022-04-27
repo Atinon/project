@@ -4,7 +4,7 @@ from django.db import models
 
 from exam_project.accounts.models import UserProfile
 
-USER_MODEL = get_user_model()
+PROFILE_MODEL = UserProfile
 
 
 class ProfileComments(models.Model):
@@ -16,12 +16,12 @@ class ProfileComments(models.Model):
         auto_now_add=True,
     )
     author = models.ForeignKey(
-        USER_MODEL,
+        PROFILE_MODEL,
         related_name="author",
         on_delete=models.CASCADE,
     )
     receiver = models.ForeignKey(
-        USER_MODEL,
+        PROFILE_MODEL,
         related_name="receiver",
         on_delete=models.CASCADE,
     )
