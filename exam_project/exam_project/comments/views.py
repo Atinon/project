@@ -12,6 +12,7 @@ PROFILE_MODEL = UserProfile
 class CommentsView(auth_mixins.LoginRequiredMixin, views.ListView):
     model = ProfileComments
     template_name = 'comments/comments_view.html'
+    paginate_by = 5
 
 
 

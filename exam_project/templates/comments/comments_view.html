@@ -1,18 +1,63 @@
 {% extends 'base.html' %}
 
 {% block page_content %}
-    ListView
-
+    {# Implement POST method for Comments form #}
     <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="GET" action="{% url 'search' %}">
         {% csrf_token %} {# is it needed here? #}
         <input type="text" name="text"
-               class="form-control" placeholder="Search for people..." aria-label="Search">
+               class="form-control" placeholder="Leave a comment" aria-label="Search">
     </form>
 
-
-    {% for item in object_list %}
-        <li>{{ item.comment_text }}, By: <b>{{ item.author.user.email }}</b>, To: <b>{{ item.receiver.user.email }}</b></li>
+    {% for item in page_obj %}
+        <li>
+            {{ item.comment_text }}, By: <b>{{ item.author.user.email }}</b>, To: <b>{{ item.receiver.user.email }}</b>
+        </li>
     {% empty %}
         <H1>Nothing to show.</H1>
     {% endfor %}
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                {#                <li class="page-item">#}
+                {#                    <a class="page-link" href="?page=1">First</a>#}
+                {#                </li>#}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                </li>
+            {% else %}
+                {#                <li class="page-item disabled">#}
+                {#                    <a class="page-link" href="#" tabindex="-1">First</a>#}
+                {#                </li>#}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                </li>
+            {% endif %}
+            {% for num in paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">{{ num }}</a>
+                    </li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                </li>
+                {#                <li class="page-item">#}
+                {#                    <a class="page-link" href="?page={{ paginator.num_pages }}">Last</a>#}
+                {#                </li>#}
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Next</a>
+                </li>
+                {#                <li class="page-item disabled">#}
+                {#                    <a class="page-link" href="#" tabindex="-1">Last</a>#}
+                {#                </li>#}
+            {% endif %}
+        </ul>
+    </nav>
+
 {% endblock %}
