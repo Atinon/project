@@ -14,11 +14,16 @@ class CommentsView(auth_mixins.LoginRequiredMixin, views.ListView):
     template_name = 'comments/comments_view.html'
     paginate_by = 5
 
+    def get_queryset(self):
+        receiver = PROFILE_MODEL.objects.get(pk=self.kwargs['pk'])
+        if receiver:
+            return self.model.objects.filter(receiver=receiver)
+        return None
 
 
 class CreateCommentView(auth_mixins.LoginRequiredMixin, views.CreateView):
     form_class = CommentsForm
-    template_name = 'comments/test_comment_post.html'
+    template_name = 'comments/post_comment.html'
 
     # write function or find a way to get UserProfile object by id
     @staticmethod
