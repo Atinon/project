@@ -68,26 +68,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'exam_project.wsgi.application'
 
-DEFAULT_DATABASE_CONFIG = None
-
-if is_production():
-    DEFAULT_DATABASE_CONFIG = {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd7mjd36p00b6id',
-        'USER': 'mgvkzzrvddincs',
-        'PASSWORD': 'a37716442a2b61c0a66757449d6a3660ea4483bac7338ebacff8ba059505829b',
-        'HOST': 'ec2-34-242-8-97.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432',
-    }
-else:
-    DEFAULT_DATABASE_CONFIG = {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'exam_project_db',
-        'USER': 'postgres',
-        'PASSWORD': '1123QwER',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
+DEFAULT_DATABASE_CONFIG = {
+    'ENGINE': 'django.db.backends.postgresql',
+    'HOST': getenv('DB_HOST'),
+    'PORT': getenv('DB_PORT', '5432'),  # 5432 -> default port
+    'NAME': getenv('DB_NAME'),
+    'USER': getenv('DB_USER'),
+    'PASSWORD': getenv('DB_PASSWORD'),
+}
 
 DATABASES = {
     'default': DEFAULT_DATABASE_CONFIG,
@@ -114,9 +102,6 @@ if is_production():
         },
     ])
 
-# Internationalization
-# https://docs.djangoproject.com/en/4.0/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -128,17 +113,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-if DEBUG:
-    STATICFILES_DIRS = (
-        BASE_DIR / 'staticfiles',
-        BASE_DIR / 'staticfiles/bootstrap',
-    )
-else:
-    STATIC_ROOT = BASE_DIR / 'staticfiles/'
-    STATICFILES_DIRS = (
-        # BASE_DIR / 'staticfiles',
-        BASE_DIR / 'staticfiles/bootstrap',
-    )
+STATIC_ROOT = BASE_DIR / 'staticfiles/'
+STATICFILES_DIRS = (
+    BASE_DIR / 'staticfiles/bootstrap',
+)
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
@@ -153,6 +131,10 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.ProjectUser'
+
+LOGGING_LEVEL = 'DEBUG'
+if is_production():
+    LOGGING_LEVEL = 'INFO'
 
 cloudinary.config(
     cloud_name=getenv('CLOUDINARY_CLOUD_NAME', None),
