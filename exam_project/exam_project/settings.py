@@ -124,17 +124,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-if DEBUG:
-    STATICFILES_DIRS = (
-        BASE_DIR / 'staticfiles',
-        BASE_DIR / 'staticfiles/bootstrap',
-    )
-else:
-    STATIC_ROOT = BASE_DIR / 'staticfiles/'
-    STATICFILES_DIRS = (
-        # BASE_DIR / 'staticfiles',
-        BASE_DIR / 'staticfiles/bootstrap',
-    )
+# if DEBUG:
+#     STATICFILES_DIRS = (
+#         BASE_DIR / 'staticfiles',
+#         BASE_DIR / 'staticfiles/bootstrap',
+#     )
+# else:
+STATIC_ROOT = BASE_DIR / 'staticfiles/'
+STATICFILES_DIRS = (
+    # BASE_DIR / 'staticfiles',
+    BASE_DIR / 'staticfiles/bootstrap',
+)
 
 STATIC_URL = '/static/'
 
