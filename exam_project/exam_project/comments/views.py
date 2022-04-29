@@ -13,11 +13,12 @@ class CommentsView(auth_mixins.LoginRequiredMixin, views.ListView):
     model = ProfileComments
     template_name = 'comments/comments_view.html'
     paginate_by = 5
+    # ordering = ['-created_on']
 
     def get_queryset(self):
         receiver = PROFILE_MODEL.objects.get(pk=self.kwargs['pk'])
         if receiver:
-            return self.model.objects.filter(receiver=receiver)
+            return self.model.objects.filter(receiver=receiver).order_by('-created_on')
         return None
 
     def get_context_data(self, **kwargs):
@@ -28,6 +29,8 @@ class CommentsView(auth_mixins.LoginRequiredMixin, views.ListView):
                 'receiver': receiver
             })
         return context
+
+
 
 
 class CreateCommentView(auth_mixins.LoginRequiredMixin, views.CreateView):
