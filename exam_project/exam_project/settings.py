@@ -1,23 +1,21 @@
 from os import getenv
 from pathlib import Path
 
+import cloudinary
+
+from exam_project.utils.utils import is_production
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-1v7j1%p8__+4(q%pxc%_l*b0(o%t#y8jxnewfz1*764_pstc!6'
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = getenv('DEBUG', 'False') == 'True'
+print(f'Debug: {DEBUG}')
 
-if DEBUG:
-    HOSTS = ['127.0.0.1']
-else:
-    HOSTS = [
-        '127.0.0.1',
-        'wndr-project.herokuapp.com'
-    ]
+APP_ENVIRONMENT = getenv('APP_ENVIRONMENT', 'Development')
+print(APP_ENVIRONMENT)
 
-ALLOWED_HOSTS = HOSTS
+SECRET_KEY = getenv('SECRET_KEY', 'backupsecretkey')
+
+ALLOWED_HOSTS = getenv('ALLOWED_HOSTS', '').split(' ')
 
 DJANGO_APPS = (
     'django.contrib.admin',
@@ -70,17 +68,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'exam_project.wsgi.application'
 
-if DEBUG:
-    default = {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'exam_project_db',
-        'USER': 'postgres',
-        'PASSWORD': '1123QwER',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-else:
-    default = {
+DEFAULT_DATABASE_CONFIG = None
+
+if is_production():
+    DEFAULT_DATABASE_CONFIG = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'd7mjd36p00b6id',
         'USER': 'mgvkzzrvddincs',
@@ -88,28 +79,40 @@ else:
         'HOST': 'ec2-34-242-8-97.eu-west-1.compute.amazonaws.com',
         'PORT': '5432',
     }
+else:
+    DEFAULT_DATABASE_CONFIG = {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'exam_project_db',
+        'USER': 'postgres',
+        'PASSWORD': '1123QwER',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
 
 DATABASES = {
-    'default': default,
+    'default': DEFAULT_DATABASE_CONFIG,
 }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
-AUTH_PASSWORD_VALIDATORS = [
-    # {
-    #     'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    # },
-    # {
-    #     'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    # },
-    # {
-    #     'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    # },
-    # {
-    #     'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    # },
-]
+AUTH_PASSWORD_VALIDATORS = []
+
+if is_production():
+    AUTH_PASSWORD_VALIDATORS.extend([
+        {
+            'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        },
+    ])
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -125,23 +128,23 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-# if DEBUG:
-#     STATICFILES_DIRS = (
-#         BASE_DIR / 'staticfiles',
-#         BASE_DIR / 'staticfiles/bootstrap',
-#     )
-# else:
-STATIC_ROOT = BASE_DIR / 'staticfiles/'
-STATICFILES_DIRS = (
-    # BASE_DIR / 'staticfiles',
-    BASE_DIR / 'staticfiles/bootstrap',
-)
+if DEBUG:
+    STATICFILES_DIRS = (
+        BASE_DIR / 'staticfiles',
+        BASE_DIR / 'staticfiles/bootstrap',
+    )
+else:
+    STATIC_ROOT = BASE_DIR / 'staticfiles/'
+    STATICFILES_DIRS = (
+        # BASE_DIR / 'staticfiles',
+        BASE_DIR / 'staticfiles/bootstrap',
+    )
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = BASE_DIR / 'staticfiles/mediafiles/'
+# MEDIA_ROOT = BASE_DIR / 'staticfiles/mediafiles/'
 MEDIA_URL = '/media/'
 
 # Default primary key field type
@@ -150,3 +153,9 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.ProjectUser'
+
+cloudinary.config(
+    cloud_name=getenv('CLOUDINARY_CLOUD_NAME', None),
+    api_key=getenv('CLOUDINARY_API_KEY', None),
+    api_secret=getenv('CLOUDINARY_API_SECRET', None),
+)
