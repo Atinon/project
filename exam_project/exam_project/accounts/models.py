@@ -1,3 +1,4 @@
+from cloudinary.models import CloudinaryField
 from django.core import validators as django_validators
 from django.db import models
 from django.contrib.auth import models as auth_models
@@ -77,13 +78,16 @@ class UserProfile(models.Model):
         ),
     )
 
-    picture = models.ImageField(
-        null=True,
-        blank=True,
-        validators=(
-            custom_validators.MaxFileSizeInMbValidator,
-        )
-    )
+    # picture = models.ImageField(
+    #     null=True,
+    #     blank=True,
+    #     validators=(
+    #         custom_validators.MaxFileSizeInMbValidator,
+    #     )
+    # )
+
+
+    picture = CloudinaryField('image')
 
     date_of_birth = models.DateField(
         null=True,
