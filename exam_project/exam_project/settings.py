@@ -81,10 +81,10 @@ if DEBUG:
 else:
     default = {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dbldk269bj8co6',
-        'USER': 'qxlvvjezyzqcmo',
-        'PASSWORD': '393cbe6834bdcda9a023fdc58f640c0c2e8d4ed96390c2dd27e5963c2120de5f',
-        'HOST': 'ec2-63-32-248-14.eu-west-1.compute.amazonaws.com',
+        'NAME': 'd7mjd36p00b6id',
+        'USER': 'mgvkzzrvddincs',
+        'PASSWORD': 'a37716442a2b61c0a66757449d6a3660ea4483bac7338ebacff8ba059505829b',
+        'HOST': 'ec2-34-242-8-97.eu-west-1.compute.amazonaws.com',
         'PORT': '5432',
     }
 

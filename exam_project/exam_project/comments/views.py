@@ -20,12 +20,20 @@ class CommentsView(auth_mixins.LoginRequiredMixin, views.ListView):
             return self.model.objects.filter(receiver=receiver)
         return None
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        receiver = PROFILE_MODEL.objects.get(pk=self.kwargs['pk'])
+        if receiver:
+            context.update({
+                'receiver': receiver
+            })
+        return context
+
 
 class CreateCommentView(auth_mixins.LoginRequiredMixin, views.CreateView):
     form_class = CommentsForm
     template_name = 'comments/post_comment.html'
 
-    # write function or find a way to get UserProfile object by id
     @staticmethod
     def get_profile_model_by_pk(pk):
         return PROFILE_MODEL.objects.get(pk=pk)

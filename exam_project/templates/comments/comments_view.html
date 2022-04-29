@@ -3,10 +3,11 @@
 {% block page_content %}
     {# Implement POST method for Comments form #}
     <div style="width: 1312px ;margin: 0 auto">
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="GET" action="{% url 'search' %}">
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"
+              method="POST" action="{% url 'post comment' pk=receiver.pk %}">
             {% csrf_token %} {# is it needed here? #}
-            <input type="text" name="text"
-                   class="form-control" placeholder="Leave a comment" aria-label="Search">
+            <input type="text" name="post_comment_text"
+                   class="form-control" placeholder="Leave a comment" aria-label="Post a comment">
         </form>
     </div>
     {% for item in page_obj %}
