@@ -31,8 +31,6 @@ class CommentsView(auth_mixins.LoginRequiredMixin, views.ListView):
         return context
 
 
-
-
 class CreateCommentView(auth_mixins.LoginRequiredMixin, views.CreateView):
     form_class = CommentsForm
     template_name = 'comments/post_comment.html'
