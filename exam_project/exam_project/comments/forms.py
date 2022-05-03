@@ -13,7 +13,6 @@ class CommentsForm(forms.ModelForm):
     #     super().__init__(*args, **kwargs)
     #     self.author = author
 
-
     def save(self, commit=True):
         comment = super().save(commit=False)
         comment.author = self.author

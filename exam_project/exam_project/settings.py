@@ -115,6 +115,7 @@ USE_TZ = True
 
 STATIC_ROOT = BASE_DIR / 'staticfiles/'
 STATICFILES_DIRS = (
+    # BASE_DIR / 'staticfiles/',
     BASE_DIR / 'staticfiles/bootstrap',
 )
 

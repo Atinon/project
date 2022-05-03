@@ -72,3 +72,9 @@ class UserChangePasswordView(auth_views.PasswordChangeView):
 
 class UserLogoutView(auth_views.LogoutView):
     next_page = 'index'
+
+
+class UserDeleteView(views.DeleteView):
+    model = PROFILE
+    template_name = 'accounts/user_delete.html'
+    success_url = reverse_lazy('index')

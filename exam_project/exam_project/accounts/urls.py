@@ -1,13 +1,14 @@
 from django.urls import path, include
 
 from exam_project.accounts.views import UserRegisterView, UserLoginView, ProfileDetailsView, UserLogoutView, \
-    ProfileEditView, UserChangePasswordView
+    ProfileEditView, UserChangePasswordView, UserDeleteView
 
 urlpatterns = (
     path('register/', UserRegisterView.as_view(), name='register page'),
     path('login/', UserLoginView.as_view(), name='login page'),
     path('<int:pk>/', ProfileDetailsView.as_view(), name='profile details'),
     path('<int:pk>/profile_edit/', ProfileEditView.as_view(), name='profile edit'),
+    path('<int:pk>/user_delete/', UserDeleteView.as_view(), name='user delete'),
     path('change_password/', UserChangePasswordView.as_view(), name='change password'),
     path('logout/', UserLogoutView.as_view(), name='logout page'),
 
