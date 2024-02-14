@@ -7,7 +7,10 @@ WORKDIR /project
 
 COPY ./exam_project ./exam_project
 COPY ./requirements.txt .
+COPY ./Dockerfile.app .
+COPY ./docker-compose.yml .
 COPY ./docker-entrypoint-app.sh .
+COPY ./init.sql .
 
 RUN pip install -r requirements.txt
 RUN python ./exam_project/manage.py makemigrations
