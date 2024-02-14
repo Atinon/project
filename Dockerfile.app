@@ -5,11 +5,12 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR /project
 
-COPY exam_project/ requirements.txt .
-COPY docker-entrypoint-app.sh .
+COPY ./exam_project ./exam_project
+COPY ./requirements.txt .
+COPY ./docker-entrypoint-app.sh .
 
 RUN pip install -r requirements.txt
-RUN python manage.py makemigrations
+RUN python ./exam_project/manage.py makemigrations
 
 EXPOSE 8000
 

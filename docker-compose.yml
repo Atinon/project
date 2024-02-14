@@ -9,6 +9,8 @@ services:
       - "8000:8000"
     env_file:
       - "exam_project/.env"
+#    volumes:
+#      - .:/project
     depends_on:
       - db
   db:
