@@ -2,8 +2,8 @@
 
 # Attempt till max_attempts to do migrations
 attempts=0
-max_attempts=4
-retry_delay=8
+max_attempts=5
+retry_delay=15
 
 while [ $attempts -lt $max_attempts ]; do
     attempts=$((attempts + 1))
