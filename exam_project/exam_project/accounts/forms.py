@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import forms as auth_forms
+from django.core.exceptions import FieldDoesNotExist
 
 from exam_project.accounts.models import UserProfile, ProjectUser
 
@@ -40,6 +41,23 @@ class CreateProfileForm(auth_forms.UserCreationForm):
         choices=PROFILE.GENDERS,
     )
 
+    @staticmethod
+    def _get_field_validators_from_model(model, field_name):
+        try:
+            return getattr(model._meta.get_field(field_name), 'validators', [])
+        except FieldDoesNotExist:
+            return []
+
+    # Using init to attach field validators to form from the model itself
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Apply validators from model to form fields
+        for field_name, field in self.fields.items():
+            field_validators = (self._get_field_validators_from_model(PROFILE, field_name) or
+                                self._get_field_validators_from_model(USER, field_name))
+            field.validators.extend(field_validators)
+
     def save(self, commit=True):
         user = super().save(commit=True)
 
@@ -75,5 +93,3 @@ class ProfileEditForm(forms.ModelForm):
             'description',
             'gender',
         )
-
-
