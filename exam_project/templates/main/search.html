@@ -2,11 +2,11 @@
 
 {% block page_content %}
     <h1>Your search results are:</h1>
-    <div class="d-inline-block">
+    <div class="row row-cols-1 row-cols-md-3 g-0 gap-2">
         {% for profile in object_list %}
-            <div class="card" style="width: 18rem;">
+            <div class="card" style="width: 16rem;">
                 {% if profile.picture %}
-                    <img class="card-img-top" src="{{ profile.picture.url }}"
+                    <img class="card-img-top" width="100%" height="100%" src="{{ profile.picture.url }}"
                          alt="No photo available">
                 {% else %}
                     <img class="card-img-top"
@@ -19,7 +19,7 @@
                         {% if profile.description %}
                             {{ profile.description }}
                         {% else %}
-                            <h9>*User has no description*</h9>
+                            <h9><i>*User has no description*</i></h9>
                         {% endif %}
                     </p>
                     <a href="{% url 'profile details' pk=profile.user_id %}"
