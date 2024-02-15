@@ -40,8 +40,12 @@ class SearchView(auth_mixins.LoginRequiredMixin, views.ListView):
     def get_queryset(self):
         query = self.request.GET['search']
         # Do a search in User DB to filter by email as well?
-        filters = Q(first_name=query, last_name=query, alias=query, _connector=Q.OR)
         if query:
+            filters = Q(
+                first_name__icontains=query,
+                last_name__icontains=query,
+                alias__icontains=query,
+                _connector=Q.OR)
             return PROFILE.objects.filter(filters)
         else:
-            return None
+            return PROFILE.objects.none()
