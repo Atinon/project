@@ -14,6 +14,7 @@ COPY ./init.sql .
 
 RUN pip install -r requirements.txt
 RUN python ./exam_project/manage.py makemigrations
+RUN chmod +x docker-entrypoint-app.sh
 
 EXPOSE 8000
 
