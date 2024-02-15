@@ -2,10 +2,13 @@
 
 {% block page_content %}
     {# pass pk from context data ? #}
-    <form method="post" class="container mb-5" action="{% url 'post comment' pk=view.kwargs.pk %}">
+    <form method="post" class="form" action="{% url 'post comment' pk=view.kwargs.pk %}">
         {% csrf_token %}
-        {{ form }}
-        <button class="btn btn-primary mt-2" type="submit">Post Comment</button>
+        <div class="form-group">
+            <label for="{{ form.comment_text.id_for_label }}">Your comment:</label>
+            {{ form.comment_text }}
+            <button class="btn btn-primary mt-2" type="submit">Post Comment</button>
+        </div>
     </form>
 
 {% endblock %}

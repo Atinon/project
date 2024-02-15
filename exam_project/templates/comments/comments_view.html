@@ -6,8 +6,12 @@
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"
               method="POST" action="{% url 'post comment' pk=receiver.pk %}">
             {% csrf_token %} {# is it needed here? #}
-            <input type="text" name="post_comment_text"
-                   class="form-control" placeholder="Leave a comment" aria-label="Post a comment">
+            <div class="input-group">
+                <input type="text" name="comment_text"
+                       class="form-control" placeholder="Leave a comment" aria-label="Leave a comment">
+                {# name="comment_text" is hardcoded atm for comments model #}
+                <button type="submit" class="btn btn-outline-secondary">Submit</button>
+            </div>
         </form>
     </div>
     {% for item in page_obj %}
@@ -24,7 +28,7 @@
                 </blockquote>
             </div>
         </div>
-    {% empty %}
+        {% empty %}
         <H1>Nothing to show.</H1>
     {% endfor %}
 
