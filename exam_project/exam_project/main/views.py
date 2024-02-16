@@ -8,8 +8,10 @@ from django.db.models import Q
 
 from exam_project.accounts.models import UserProfile
 from exam_project.utils.view_mixins import RedirectIfAuthenticatedMixin
+from exam_project.comments.models import ProfileComments
 
 PROFILE = UserProfile
+COMMENTS = ProfileComments
 
 
 class GreetView(RedirectIfAuthenticatedMixin, views.TemplateView):
@@ -20,8 +22,15 @@ class AboutView(views.TemplateView):
     template_name = 'main/about.html'
 
 
-class IndexView(views.TemplateView):
+class IndexView(views.ListView):
     template_name = 'main/index.html'
+
+    COMMENTS_COUNT = 20
+    ORDER_CRITERION = '-created_on'
+
+    queryset = COMMENTS.objects.order_by(ORDER_CRITERION)[:COMMENTS_COUNT]
+    context_object_name = 'recent_comments'
+    paginate_by = 10
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
