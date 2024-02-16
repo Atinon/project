@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block page_content %}
 
     {% for comment in recent_comments %}
@@ -9,14 +9,26 @@
                     <p>{{ comment.comment_text }}</p>
                     <footer class="blockquote-footer" style="font-size: 13px">
                         {#                        From:#}
-                        <img src="{{ comment.author.picture.url }}"
-                             alt="null"
-                             width="20" height="20" class="rounded-circle">
+                        {% if comment.author.picture %}
+                            <img src="{{ comment.author.picture.url }}"
+                                 alt="null"
+                                 width="20" height="20" class="rounded-circle">
+                        {% else %}
+                            <img src="{% static 'mediafiles/portrait_placeholder.png' %}"
+                                 alt="null"
+                                 width="20" height="20" class="rounded-circle">
+                        {% endif %}
                         {{ comment.author.user.email }},
                         {#                        To:#}
-                        <img src="{{ comment.receiver.picture.url }}"
-                             alt="null"
-                             width="20" height="20" class="rounded-circle">
+                        {% if comment.receiver.picture %}
+                            <img src="{{ comment.receiver.picture.url }}"
+                                 alt="null"
+                                 width="20" height="20" class="rounded-circle">
+                        {% else %}
+                            <img src="{% static 'mediafiles/portrait_placeholder.png' %}"
+                                 alt="null"
+                                 width="20" height="20" class="rounded-circle">
+                        {% endif %}
                         {{ comment.receiver.user.email }}
                         <cite title="Source Title">{{ comment.created_on }}</cite>
                     </footer>
